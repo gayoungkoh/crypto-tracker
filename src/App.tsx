@@ -1,5 +1,11 @@
+import Router from "./Router";
+
 const App = () => {
-  return null;
+  return (
+    <div>
+      <Router />
+    </div>
+  );
 };
 
 export default App;
