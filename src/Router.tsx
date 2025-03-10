@@ -1,18 +1,24 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import Header from "./components/Header";
+import { createBrowserRouter } from "react-router";
 import Home from "./screens/Home";
 import About from "./screens/About";
 
-const Router = () => {
-  return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+import Root from "./Root";
 
-export default Router;
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+    ],
+  },
+]);
+
+export default router;
