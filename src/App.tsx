@@ -5,7 +5,9 @@ import { ModeToggle } from "@/components/mode-toggle";
 const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <ModeToggle />
+      <div className="flex justify-end">
+        <ModeToggle />
+      </div>
       <Outlet />
     </ThemeProvider>
   );
