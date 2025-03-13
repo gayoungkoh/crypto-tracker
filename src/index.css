@@ -128,3 +128,7 @@
 @theme {
   --font-sans: "Pretendard", sans-serif;
 }
+
+.dark {
+  --background: #2f3640;
+}

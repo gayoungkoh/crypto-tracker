@@ -39,7 +39,7 @@ const Coins = () => {
 
   const coinsListClassName = "";
   const coinClassName =
-    "bg-white text-black mb-2.5 p-5 rounded-2xl cursor-pointer hover:text-purple-400 flex items-center gap-2 light:border-1";
+    "bg-white text-black mb-2.5 p-5 rounded-2xl cursor-pointer hover:text-[#9c88ff] flex items-center gap-2 light:border-1";
   const coinImageClassName = "w-5 h-5";
 
   return (
