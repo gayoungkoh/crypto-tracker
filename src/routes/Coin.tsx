@@ -1,11 +1,8 @@
+import { CoinRouteParams } from "@/types/coin";
 import { useParams } from "react-router";
 
-type RouteParams = {
-  coinId: string;
-};
-
 const Coin = () => {
-  const { coinId } = useParams<RouteParams>();
+  const { coinId } = useParams<CoinRouteParams>();
   return <h1>Coin: {coinId}</h1>;
 };
 

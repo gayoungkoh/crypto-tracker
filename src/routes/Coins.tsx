@@ -1,42 +1,12 @@
+import LoadingSpinner from "@/components/loding-spinner";
+import { Coin } from "@/types/coin";
+import { fetchData } from "@/utils/api-helper";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 const Coins = () => {
-  const containerClassName = "px-5";
-  const headerClassName = "h-[10vh] flex justify-center items-center";
-  const titleClassName = "text-5xl text-purple-400";
-  const coinsListClassName = "";
-  const coinClassName =
-    "bg-white text-black mb-2.5 p-5 rounded-2xl cursor-pointer hover:text-purple-400";
-
-  const coins = [
-    {
-      id: "btc-bitcoin",
-      name: "Bitcoin",
-      symbol: "BTC",
-      rank: 1,
-      is_new: false,
-      is_active: true,
-      type: "coin",
-    },
-    {
-      id: "eth-ethereum",
-      name: "Ethereum",
-      symbol: "ETH",
-      rank: 2,
-      is_new: false,
-      is_active: true,
-      type: "coin",
-    },
-    {
-      id: "usdt-tether",
-      name: "Tether",
-      symbol: "USDT",
-      rank: 3,
-      is_new: false,
-      is_active: true,
-      type: "token",
-    },
-  ];
+  const [coins, setCoins] = useState<Coin[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -44,22 +14,47 @@ const Coins = () => {
     navigate(`/${coinId}`);
   };
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetchData<Coin[]>(
+          "https://api.coinpaprika.com/v1/coins"
+        );
+        setCoins(response.slice(0, 10));
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
+
+  const containerClassName = "px-5 max-w-[480px] m-auto";
+  const headerClassName = "h-[10vh] flex justify-center items-center";
+  const titleClassName = "text-5xl text-purple-400";
+  const coinsListClassName = "";
+  const coinClassName =
+    "bg-white text-black mb-2.5 p-5 rounded-2xl cursor-pointer hover:text-purple-400";
+
   return (
     <div className={containerClassName}>
       <header className={headerClassName}>
         <h1 className={titleClassName}>Coins</h1>
       </header>
-      <ul className={coinsListClassName}>
-        {coins.map((coin) => (
-          <li
-            key={coin.id}
-            className={coinClassName}
-            onClick={() => navigateToDetail(coin.id)}
-          >
-            {coin.name} &rarr;
-          </li>
-        ))}
-      </ul>
+      {loading ? (
+        <LoadingSpinner className="w-100" />
+      ) : (
+        <ul className={coinsListClassName}>
+          {coins.map((coin) => (
+            <li
+              key={coin.id}
+              className={coinClassName}
+              onClick={() => navigateToDetail(coin.id)}
+            >
+              {coin.name} &rarr;
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
