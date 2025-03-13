@@ -1,4 +1,9 @@
 import LoadingSpinner from "@/components/loding-spinner";
+import {
+  CONTAINER_CLASS_NAME,
+  HEADER_CLASSNAME,
+  TITLE_CLASS_NAME,
+} from "@/constants/class-name";
 import { Coin } from "@/types/coin";
 import { fetchData } from "@/utils/api-helper";
 import { useEffect, useState } from "react";
@@ -10,8 +15,12 @@ const Coins = () => {
 
   const navigate = useNavigate();
 
-  const navigateToDetail = (coinId: string) => {
-    navigate(`/${coinId}`);
+  const navigateToDetail = (coinId: string, name: string) => {
+    navigate(`/${coinId}`, {
+      state: {
+        name,
+      },
+    });
   };
 
   useEffect(() => {
@@ -28,17 +37,15 @@ const Coins = () => {
     })();
   }, []);
 
-  const containerClassName = "px-5 max-w-[480px] m-auto";
-  const headerClassName = "h-[10vh] flex justify-center items-center";
-  const titleClassName = "text-5xl text-purple-400";
   const coinsListClassName = "";
   const coinClassName =
-    "bg-white text-black mb-2.5 p-5 rounded-2xl cursor-pointer hover:text-purple-400";
+    "bg-white text-black mb-2.5 p-5 rounded-2xl cursor-pointer hover:text-purple-400 flex items-center gap-2 light:border-1";
+  const coinImageClassName = "w-5 h-5";
 
   return (
-    <div className={containerClassName}>
-      <header className={headerClassName}>
-        <h1 className={titleClassName}>Coins</h1>
+    <div className={CONTAINER_CLASS_NAME}>
+      <header className={HEADER_CLASSNAME}>
+        <h1 className={TITLE_CLASS_NAME}>Coins</h1>
       </header>
       {loading ? (
         <LoadingSpinner className="w-100" />
@@ -48,8 +55,12 @@ const Coins = () => {
             <li
               key={coin.id}
               className={coinClassName}
-              onClick={() => navigateToDetail(coin.id)}
+              onClick={() => navigateToDetail(coin.id, coin.name)}
             >
+              <img
+                className={coinImageClassName}
+                src={`https://static.coinpaprika.com/coin/${coin.id}/logo.png`}
+              />
               {coin.name} &rarr;
             </li>
           ))}
