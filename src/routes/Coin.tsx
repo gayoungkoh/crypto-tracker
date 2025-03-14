@@ -7,7 +7,13 @@ import {
 import { CoinRouteParams, InfoData, PriceData } from "@/types/coin";
 import { fetchData } from "@/utils/api-helper";
 import { useEffect, useState } from "react";
-import { Outlet, useLocation, useParams } from "react-router";
+import {
+  Outlet,
+  useLocation,
+  useMatch,
+  useNavigate,
+  useParams,
+} from "react-router";
 
 const Coin = () => {
   const { coinId } = useParams<CoinRouteParams>();
@@ -15,6 +21,8 @@ const Coin = () => {
   const { state } = useLocation();
   const [info, setInfo] = useState<InfoData>();
   const [priceInfo, setPriceInfo] = useState<PriceData>();
+  const priceMatch = useMatch("/:coinId/price") !== null;
+  const chartMatch = useMatch("/:coinId/chart") !== null;
 
   useEffect(() => {
     (async () => {
@@ -40,6 +48,9 @@ const Coin = () => {
   const overviewItemClassName = "flex flex-col items-center";
   const overviewItemTitleClassName = "text-[10px] font-normal uppercase mb-1.5";
   const descriptionClassName = "my-5";
+  const tabsClassName = "grid grid-cols-2 my-6 gap-2.5";
+  const tabClassName =
+    "text-center uppercase text-[12px] font-normal bg-black/50 py-[7px] rounded-[10px]";
 
   const getTitle = () => {
     if (state && state.name) {
@@ -49,6 +60,12 @@ const Coin = () => {
       return "";
     }
     return info?.name || "";
+  };
+
+  const navigate = useNavigate();
+
+  const onChangeTab = (tabName: string) => {
+    navigate(tabName);
   };
 
   return (
@@ -83,6 +100,20 @@ const Coin = () => {
             <div className={overviewItemClassName}>
               <span className={overviewItemTitleClassName}>Max Supply:</span>
               <span>{priceInfo?.max_supply || ""}</span>
+            </div>
+          </div>
+          <div className={tabsClassName}>
+            <div
+              className={`${tabClassName} ${chartMatch && "text-[#9c88ff]"}`}
+              onClick={() => onChangeTab("chart")}
+            >
+              Chart
+            </div>
+            <div
+              className={`${tabClassName} ${priceMatch && "text-[#9c88ff]"}`}
+              onClick={() => onChangeTab("price")}
+            >
+              Price
             </div>
           </div>
           <Outlet />
