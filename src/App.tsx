@@ -10,7 +10,7 @@ const App = () => {
         <ModeToggle />
       </div>
       <Outlet />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </ThemeProvider>
   );
 };

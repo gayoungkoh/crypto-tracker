@@ -1,4 +1,5 @@
 import { fetchCoins } from "@/api";
+import { CoinListTable } from "@/components/coin-list-table";
 import LoadingSpinner from "@/components/loding-spinner";
 import {
   CONTAINER_CLASS_NAME,
@@ -38,21 +39,22 @@ const Coins = () => {
       {isLoading ? (
         <LoadingSpinner className="w-100" />
       ) : (
-        <ul className={coinsListClassName}>
-          {data.slice(0, 10).map((coin) => (
-            <li
-              key={coin.id}
-              className={coinClassName}
-              onClick={() => navigateToDetail(coin.id, coin.name)}
-            >
-              <img
-                className={coinImageClassName}
-                src={`https://static.coinpaprika.com/coin/${coin.id}/logo.png`}
-              />
-              {coin.name} &rarr;
-            </li>
-          ))}
-        </ul>
+        // <ul className={coinsListClassName}>
+        //   {data.slice(0, 10).map((coin) => (
+        //     <li
+        //       key={coin.id}
+        //       className={coinClassName}
+        //       onClick={() => navigateToDetail(coin.id, coin.name)}
+        //     >
+        //       <img
+        //         className={coinImageClassName}
+        //         src={`https://static.coinpaprika.com/coin/${coin.id}/logo.png`}
+        //       />
+        //       {coin.name} &rarr;
+        //     </li>
+        //   ))}
+        // </ul>
+        <CoinListTable coinList={data.slice(0, 100)} />
       )}
     </div>
   );
