@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
         <ModeToggle />
       </div>
       <Outlet />
+      <ReactQueryDevtools initialIsOpen={true} />
     </ThemeProvider>
   );
 };

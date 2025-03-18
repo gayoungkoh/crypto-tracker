@@ -16,7 +16,7 @@ export type CoinRouteParams = {
   coinId: string;
 };
 
-export type InfoData = {
+export type CoinInfo = {
   id: string;
   name: string;
   symbol: string;
@@ -58,7 +58,7 @@ type Quotes = {
   percent_from_price_ath: number;
 };
 
-export type PriceData = {
+export type TickersInfo = {
   id: string;
   name: string;
   symbol: string;
