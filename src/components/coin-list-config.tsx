@@ -6,6 +6,7 @@ import { Coin } from "@/types/coin";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
+import { ColumnProps } from "primereact/column";
 
 export const coinListColumns: ColumnDef<Coin>[] = [
   {
@@ -52,6 +53,37 @@ export const coinListColumns: ColumnDef<Coin>[] = [
   },
   {
     accessorKey: "type",
+    header: "Type",
+  },
+];
+
+export const coinListColumnsPrimeReact: ColumnProps[] = [
+  {
+    field: "name",
+    header: "Name",
+    sortable: true,
+  },
+  {
+    field: "symbol",
+    header: "Symbol",
+  },
+  {
+    field: "rank",
+    header: "Rank",
+    sortable: true,
+  },
+  {
+    field: "is_new",
+    header: "Is New",
+    body: (value) => (value.is_new ? "Yes" : "No"),
+  },
+  {
+    field: "is_active",
+    header: "Is Active",
+    body: (value) => (value.is_active ? "Yes" : "No"),
+  },
+  {
+    field: "type",
     header: "Type",
   },
 ];
