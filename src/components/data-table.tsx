@@ -36,7 +36,7 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 type TableProps<TData, TValue> = {
   data: TData[];
@@ -59,14 +59,12 @@ export const DataTableColumnHeader = <TData, TValue>({
       className={cn("flex items-center", column.getIsSorted() && "underline")}
     >
       {title}
-      {column.getIsSorted() && (
-        <span className="ml-2">
-          {column.getIsSorted() === "desc" ? (
-            <ArrowDownIcon className="h-4 w-4" />
-          ) : (
-            <ArrowUpIcon className="h-4 w-4" />
-          )}
-        </span>
+      {column.getIsSorted() === "asc" ? (
+        <ArrowUp className="h-4 w-4" />
+      ) : column.getIsSorted() === "desc" ? (
+        <ArrowDown className="h-4 w-4" />
+      ) : (
+        <ArrowUpDown className="h-4 w-4" />
       )}
     </Button>
   );
