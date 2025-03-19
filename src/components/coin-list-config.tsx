@@ -4,7 +4,7 @@ duplication, or distribution of software is strictly prohibited.
 */
 import { Coin } from "@/types/coin";
 import { ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "./data-table";
+import { DataTableColumnHeader } from "@/components/data-table";
 
 export const coinListColumns: ColumnDef<Coin>[] = [
   {
