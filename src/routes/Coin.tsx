@@ -58,7 +58,11 @@ const Coin = () => {
   const navigate = useNavigate();
 
   const onChangeTab = (tabName: string) => {
-    navigate(tabName);
+    navigate(tabName, {
+      state: {
+        coinId,
+      },
+    });
   };
 
   return (
