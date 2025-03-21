@@ -1,5 +1,8 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css");
 
+@import "highcharts/css/highcharts.css";
+@import url("https://code.highcharts.com/dashboards/css/dashboards.css");
+
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -131,4 +134,8 @@
 
 .dark {
   --background: #2f3640;
+}
+
+.highcharts-dark {
+  --highcharts-background-color: #2f3640;
 }

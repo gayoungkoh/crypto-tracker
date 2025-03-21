@@ -25,8 +25,8 @@ export const fetchCoinTickers = async (
 
 export const fetchCoinHistory = async (
   coinId: string
-): Promise<CoinHistoryInfo> => {
-  return await fetchData<CoinHistoryInfo>(
+): Promise<CoinHistoryInfo[]> => {
+  return await fetchData<CoinHistoryInfo[]>(
     `${HISTORY_BASE_URL}?coinId=${coinId}`
   );
 };
