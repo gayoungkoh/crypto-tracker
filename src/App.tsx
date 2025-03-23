@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { HelmetProvider } from "react-helmet-async";
 
 const App = () => {
   return (
@@ -9,7 +10,9 @@ const App = () => {
       <div className="flex justify-end">
         <ModeToggle />
       </div>
-      <Outlet />
+      <HelmetProvider>
+        <Outlet />
+      </HelmetProvider>
       <ReactQueryDevtools initialIsOpen={true} />
     </ThemeProvider>
   );

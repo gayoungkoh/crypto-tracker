@@ -14,6 +14,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router";
+import { Helmet } from "react-helmet-async";
 
 const Coin = () => {
   const { coinId = "" } = useParams<CoinRouteParams>();
@@ -32,6 +33,7 @@ const Coin = () => {
       queryKey: ["tickers", coinId],
       queryFn: () => fetchCoinTickers(coinId),
       enabled: !!coinId,
+      // refetchInterval: 5000,
     });
 
   const loading = infoLoading || tickersLoading;
@@ -67,6 +69,9 @@ const Coin = () => {
 
   return (
     <div className={CONTAINER_CLASS_NAME}>
+      <Helmet>
+        <title>{getTitle()}</title>
+      </Helmet>
       <header className={HEADER_CLASSNAME}>
         <h1 className={TITLE_CLASS_NAME}>{getTitle()}</h1>
       </header>
@@ -84,8 +89,8 @@ const Coin = () => {
               <span>{infoData?.symbol || ""}</span>
             </div>
             <div className={overviewItemClassName}>
-              <span className={overviewItemTitleClassName}>Open Source:</span>
-              <span>{infoData?.open_source ? "Yes" : "No"}</span>
+              <span className={overviewItemTitleClassName}>Price:</span>
+              <span>{tickersData?.quotes.USD.price.toFixed(3)}</span>
             </div>
           </div>
           <div className={descriptionClassName}>

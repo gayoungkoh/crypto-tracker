@@ -32,6 +32,7 @@ const Chart = () => {
   const { isLoading, data } = useQuery({
     queryKey: ["ohlcv", state.coinId],
     queryFn: () => fetchCoinHistory(state.coinId),
+    // refetchInterval: 10000,
   });
 
   const tooltipFormatter = (tooltip: Tooltip) => {

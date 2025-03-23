@@ -7,6 +7,7 @@ import {
 } from "@/constants/class-name";
 import { Coin } from "@/types/coin";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router";
 
 const Coins = () => {
@@ -32,6 +33,9 @@ const Coins = () => {
 
   return (
     <div className={CONTAINER_CLASS_NAME}>
+      <Helmet>
+        <title>Coins</title>
+      </Helmet>
       <header className={HEADER_CLASSNAME}>
         <h1 className={TITLE_CLASS_NAME}>Coins</h1>
       </header>
