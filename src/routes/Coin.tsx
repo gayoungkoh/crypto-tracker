@@ -67,11 +67,18 @@ const Coin = () => {
     });
   };
 
+  const moveToList = () => {
+    navigate("/");
+  };
+
   return (
     <div className={CONTAINER_CLASS_NAME}>
       <Helmet>
         <title>{getTitle()}</title>
       </Helmet>
+      <span className="cursor-pointer" onClick={moveToList}>
+        &larr;
+      </span>
       <header className={HEADER_CLASSNAME}>
         <h1 className={TITLE_CLASS_NAME}>{getTitle()}</h1>
       </header>
@@ -108,13 +115,13 @@ const Coin = () => {
           </div>
           <div className={tabsClassName}>
             <div
-              className={`${tabClassName} ${chartMatch && "text-[#9c88ff]"}`}
+              className={`${tabClassName} ${chartMatch && "text-[#9c88ff]"} cursor-pointer`}
               onClick={() => onChangeTab("chart")}
             >
               Chart
             </div>
             <div
-              className={`${tabClassName} ${priceMatch && "text-[#9c88ff]"}`}
+              className={`${tabClassName} ${priceMatch && "text-[#9c88ff]"} cursor-pointer`}
               onClick={() => onChangeTab("price")}
             >
               Price
