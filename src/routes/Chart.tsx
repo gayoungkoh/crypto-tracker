@@ -4,16 +4,12 @@ import { useLocation } from "react-router";
 
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts/highstock";
-import { GradientColorObject, Options, Tooltip } from "highcharts";
+import { GradientColorObject, Options } from "highcharts";
 import LoadingSpinner from "@/components/loding-spinner";
 import { useTheme } from "@/components/theme-provider";
 
-import isNil from "lodash-es/isNil";
-import zip from "lodash-es/zip";
-import { DateTime } from "luxon";
 import { COLOR } from "@/constants/color";
 import { THEME } from "@/constants/theme";
-import { DATE_YEAR_MONTH_DAY_FORMAT } from "@/constants/date";
 
 const Chart = () => {
   const { state } = useLocation();
@@ -34,23 +30,6 @@ const Chart = () => {
     queryFn: () => fetchCoinHistory(state.coinId),
     // refetchInterval: 10000,
   });
-
-  const tooltipFormatter = (tooltip: Tooltip) => {
-    if (isNil(tooltip.chart.hoverPoints)) return "";
-
-    const xValue = DateTime.fromMillis(tooltip.chart.hoverPoints[0].x).toFormat(
-      DATE_YEAR_MONTH_DAY_FORMAT
-    );
-
-    const tooltipBySeries: string[] = [];
-    tooltip.chart.hoverPoints.forEach((point) => {
-      if (!isNil(point.y)) {
-        tooltipBySeries.push(`● ${point.series.name}: $${point.y}`);
-      }
-    });
-
-    return `${xValue}<br />${tooltipBySeries.join("<br />")}`;
-  };
 
   const getChartBackgroundColor = () =>
     checkIsDark() ? COLOR.BACKGROUND_DARK : COLOR.WHITE;
@@ -86,15 +65,17 @@ const Chart = () => {
     },
     series: [
       {
+        type: "candlestick",
         name: "Price",
-        data: zip(
-          data?.map((price) => new Date(price.time_close * 1000).getTime()) ||
-            [],
-          data?.map((price) => Number(price.close)) || []
-        ),
-        type: "spline",
+        data:
+          data?.map((price) => [
+            price.time_close * 1000,
+            Number(price.open),
+            Number(price.high),
+            Number(price.low),
+            Number(price.close),
+          ]) || [],
         color: chartSeriesGradientColor,
-        lineWidth: 3,
       },
     ],
     tooltip: {
@@ -102,7 +83,6 @@ const Chart = () => {
       style: {
         color: getTooltipTextColor(),
       },
-      formatter: tooltipFormatter,
     },
   };
 
