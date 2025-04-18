@@ -39,13 +39,13 @@ const Coin = () => {
   const loading = infoLoading || tickersLoading;
 
   const overviewClassName =
-    "flex justify-between bg-black/50 py-2.5 px-5 rounded-[10px]";
+    "flex justify-between bg-gray-100 dark:bg-black/50 py-2.5 px-5 rounded-[10px]";
   const overviewItemClassName = "flex flex-col items-center";
   const overviewItemTitleClassName = "text-[10px] font-normal uppercase mb-1.5";
   const descriptionClassName = "my-5";
   const tabsClassName = "grid grid-cols-2 my-6 gap-2.5";
   const tabClassName =
-    "text-center uppercase text-[12px] font-normal bg-black/50 py-[7px] rounded-[10px]";
+    "text-center uppercase text-[12px] font-normal bg-gray-100 dark:bg-black/50 py-[7px] rounded-[10px]";
 
   const getTitle = () => {
     if (state && state.name) {
@@ -127,7 +127,7 @@ const Coin = () => {
               Price
             </div>
           </div>
-          <Outlet />
+          <Outlet context={{ tickersData }} />
         </>
       )}
     </div>
